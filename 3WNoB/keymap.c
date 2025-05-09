@@ -65,16 +65,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 
-uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-        case LT(1,KC_ESCAPE):
-            return TAPPING_TERM -62;
-        case MT(MOD_LGUI, KC_ENTER):
-            return TAPPING_TERM -62;
-        default:
-            return TAPPING_TERM;
-    }
-}
 
 extern rgb_config_t rgb_matrix_config;
 
