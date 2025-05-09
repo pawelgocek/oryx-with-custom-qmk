@@ -395,6 +395,10 @@ bool get_chordal_hold(uint16_t tap_hold_keycode, keyrecord_t* tap_hold_record,
     switch (tap_hold_keycode) {
         case MT(MOD_LGUI, KC_ENTER):
             return true;
+        case LT(1,KC_ESCAPE):
+            return true;
+        case LT(2,KC_BSPC):
+            return true;
     }
     // Otherwise defer to the opposite hands rule.
     return get_chordal_hold_default(tap_hold_record, other_record);
@@ -404,6 +408,10 @@ bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case MT(MOD_LGUI, KC_ENTER):
             // Immediately select the hold action when another key is pressed.
+            return true;
+        case LT(1,KC_ESCAPE):
+            return true;
+        case LT(2,KC_BSPC):
             return true;
         default:
             // Do not select the hold action when another key is pressed.
