@@ -387,6 +387,8 @@ bool get_chordal_hold(uint16_t tap_hold_keycode, keyrecord_t* tap_hold_record,
             return true;
         case LT(2,KC_BSPC):
             return true;
+        case KC_SPACE:
+            return false;
     }
     // Otherwise defer to the opposite hands rule.
     return get_chordal_hold_default(tap_hold_record, other_record);
