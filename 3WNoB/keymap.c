@@ -19,13 +19,13 @@ enum custom_keycodes {
 
 
 
-#define DUAL_FUNC_0 LT(27, KC_C)
-#define DUAL_FUNC_1 LT(32, KC_1)
-#define DUAL_FUNC_2 LT(20, KC_2)
-#define DUAL_FUNC_3 LT(28, KC_5)
-#define DUAL_FUNC_4 LT(23, KC_T)
-#define DUAL_FUNC_5 LT(18, KC_F6)
-#define DUAL_FUNC_6 LT(25, KC_T)
+#define DUAL_FUNC_0 LT(30, KC_F9)
+#define DUAL_FUNC_1 LT(32, KC_5)
+#define DUAL_FUNC_2 LT(31, KC_A)
+#define DUAL_FUNC_3 LT(24, KC_Y)
+#define DUAL_FUNC_4 LT(27, KC_F7)
+#define DUAL_FUNC_5 LT(31, KC_Q)
+#define DUAL_FUNC_6 LT(24, KC_F4)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_voyager(
@@ -38,7 +38,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [1] = LAYOUT_voyager(
     KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, 
     KC_TRANSPARENT, KC_1,           KC_2,           KC_3,           KC_4,           KC_5,                                           KC_6,           KC_7,           KC_8,           KC_9,           KC_0,           KC_TRANSPARENT, 
-    KC_TRANSPARENT, DUAL_FUNC_0,    MT(MOD_LCTL, KC_MINUS),DUAL_FUNC_1,    MT(MOD_LGUI, KC_EQUAL),KC_PLUS,                                        KC_LPRN,        MT(MOD_RGUI, KC_LBRC),MT(MOD_RALT, KC_RBRC),DUAL_FUNC_2,    KC_TRANSPARENT, KC_TRANSPARENT, 
+    KC_GRAVE,       DUAL_FUNC_0,    MT(MOD_LCTL, KC_MINUS),DUAL_FUNC_1,    MT(MOD_LGUI, KC_EQUAL),KC_PLUS,                                        KC_LPRN,        MT(MOD_RGUI, KC_LBRC),MT(MOD_RALT, KC_RBRC),DUAL_FUNC_2,    KC_TRANSPARENT, KC_TRANSPARENT, 
     KC_TRANSPARENT, KC_EXLM,        KC_AT,          KC_HASH,        KC_DLR,         KC_PERC,                                        KC_CIRC,        KC_AMPR,        KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, 
                                                     KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT
   ),
