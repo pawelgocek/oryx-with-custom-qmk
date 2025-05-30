@@ -16,15 +16,13 @@ enum custom_keycodes {
 
 
 
-#define DUAL_FUNC_0 LT(12, KC_H)
-#define DUAL_FUNC_1 LT(6, KC_5)
-#define DUAL_FUNC_2 LT(11, KC_F15)
-#define DUAL_FUNC_3 LT(7, KC_Y)
-#define DUAL_FUNC_4 LT(10, KC_A)
-#define DUAL_FUNC_5 LT(8, KC_F14)
-#define DUAL_FUNC_6 LT(12, KC_P)
-#define DUAL_FUNC_7 LT(9, KC_R)
-#define DUAL_FUNC_8 LT(14, KC_4)
+#define DUAL_FUNC_0 LT(9, KC_F6)
+#define DUAL_FUNC_1 LT(5, KC_F17)
+#define DUAL_FUNC_2 LT(7, KC_F1)
+#define DUAL_FUNC_3 LT(8, KC_K)
+#define DUAL_FUNC_4 LT(6, KC_F5)
+#define DUAL_FUNC_5 LT(1, KC_G)
+#define DUAL_FUNC_6 LT(12, KC_7)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_voyager(
@@ -37,7 +35,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [1] = LAYOUT_voyager(
     KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, 
     KC_TRANSPARENT, KC_1,           KC_2,           KC_3,           KC_4,           KC_5,                                           KC_6,           KC_7,           KC_8,           KC_9,           KC_0,           KC_PIPE,        
-    DUAL_FUNC_0,    MT(MOD_LSFT, KC_MINUS),MT(MOD_LCTL, KC_LBRC),MT(MOD_LALT, KC_RBRC),DUAL_FUNC_1,    KC_PLUS,                                        KC_ASTR,        MT(MOD_RGUI, KC_EQUAL),DUAL_FUNC_2,    DUAL_FUNC_3,    DUAL_FUNC_4,    DUAL_FUNC_5,    
+    KC_GRAVE,       MT(MOD_LSFT, KC_EQUAL),MT(MOD_LCTL, KC_LBRC),MT(MOD_LALT, KC_RBRC),MT(MOD_LGUI, KC_MINUS),KC_PLUS,                                        KC_ASTR,        DUAL_FUNC_0,    DUAL_FUNC_1,    DUAL_FUNC_2,    DUAL_FUNC_3,    KC_DQUO,        
     KC_TRANSPARENT, KC_EXLM,        KC_AT,          KC_HASH,        KC_DLR,         KC_PERC,                                        KC_CIRC,        KC_AMPR,        KC_LABK,        KC_RABK,        KC_QUES,        KC_TRANSPARENT, 
                                                     KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT
   ),
@@ -58,7 +56,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [4] = LAYOUT_voyager(
     KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, 
     KC_TRANSPARENT, KC_1,           KC_2,           KC_3,           KC_4,           KC_5,                                           KC_6,           KC_7,           KC_8,           KC_9,           KC_0,           KC_TRANSPARENT, 
-    KC_GRAVE,       DUAL_FUNC_6,    MT(MOD_LCTL, KC_MINUS),DUAL_FUNC_7,    MT(MOD_LGUI, KC_EQUAL),KC_PLUS,                                        KC_LPRN,        MT(MOD_RGUI, KC_LBRC),MT(MOD_RALT, KC_RBRC),DUAL_FUNC_8,    KC_TRANSPARENT, KC_TRANSPARENT, 
+    KC_GRAVE,       DUAL_FUNC_4,    MT(MOD_LCTL, KC_MINUS),DUAL_FUNC_5,    MT(MOD_LGUI, KC_EQUAL),KC_PLUS,                                        KC_LPRN,        MT(MOD_RGUI, KC_LBRC),MT(MOD_RALT, KC_RBRC),DUAL_FUNC_6,    KC_TRANSPARENT, KC_TRANSPARENT, 
     KC_TRANSPARENT, KC_EXLM,        KC_AT,          KC_HASH,        KC_DLR,         KC_PERC,                                        KC_CIRC,        KC_AMPR,        KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, 
                                                     KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT
   ),
@@ -158,34 +156,19 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case DUAL_FUNC_0:
       if (record->tap.count > 0) {
         if (record->event.pressed) {
-          register_code16(KC_GRAVE);
-        } else {
-          unregister_code16(KC_GRAVE);
-        }
-      } else {
-        if (record->event.pressed) {
-          register_code16(KC_TILD);
-        } else {
-          unregister_code16(KC_TILD);
-        }  
-      }  
-      return false;
-    case DUAL_FUNC_1:
-      if (record->tap.count > 0) {
-        if (record->event.pressed) {
           register_code16(KC_UNDS);
         } else {
           unregister_code16(KC_UNDS);
         }
       } else {
         if (record->event.pressed) {
-          register_code16(KC_LEFT_GUI);
+          register_code16(KC_RIGHT_GUI);
         } else {
-          unregister_code16(KC_LEFT_GUI);
+          unregister_code16(KC_RIGHT_GUI);
         }  
       }  
       return false;
-    case DUAL_FUNC_2:
+    case DUAL_FUNC_1:
       if (record->tap.count > 0) {
         if (record->event.pressed) {
           register_code16(KC_LPRN);
@@ -200,7 +183,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }  
       }  
       return false;
-    case DUAL_FUNC_3:
+    case DUAL_FUNC_2:
       if (record->tap.count > 0) {
         if (record->event.pressed) {
           register_code16(KC_RPRN);
@@ -215,7 +198,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }  
       }  
       return false;
-    case DUAL_FUNC_4:
+    case DUAL_FUNC_3:
       if (record->tap.count > 0) {
         if (record->event.pressed) {
           register_code16(KC_COLN);
@@ -230,22 +213,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }  
       }  
       return false;
-    case DUAL_FUNC_5:
-      if (record->tap.count > 0) {
-        if (record->event.pressed) {
-          register_code16(KC_DQUO);
-        } else {
-          unregister_code16(KC_DQUO);
-        }
-      } else {
-        if (record->event.pressed) {
-          register_code16(KC_PIPE);
-        } else {
-          unregister_code16(KC_PIPE);
-        }  
-      }  
-      return false;
-    case DUAL_FUNC_6:
+    case DUAL_FUNC_4:
       if (record->tap.count > 0) {
         if (record->event.pressed) {
           register_code16(KC_ASTR);
@@ -260,7 +228,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }  
       }  
       return false;
-    case DUAL_FUNC_7:
+    case DUAL_FUNC_5:
       if (record->tap.count > 0) {
         if (record->event.pressed) {
           register_code16(KC_UNDS);
@@ -275,7 +243,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }  
       }  
       return false;
-    case DUAL_FUNC_8:
+    case DUAL_FUNC_6:
       if (record->tap.count > 0) {
         if (record->event.pressed) {
           register_code16(KC_RPRN);
