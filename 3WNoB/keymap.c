@@ -24,6 +24,21 @@ enum custom_keycodes {
 #define DUAL_FUNC_5 LT(13, KC_N)
 #define DUAL_FUNC_6 LT(3, KC_X)
 
+enum combos {
+  LCBR_COMBO,  // Left curly brace "{"
+  RCBR_COMBO,  // Right curly brace "}"
+};
+
+// Define the key sequences for your combos
+const uint16_t PROGMEM lcbr_combo[] = {LT(1, KC_ESCAPE), MT(MOD_LSFT, KC_A), MT(MOD_RALT, KC_K), COMBO_END};
+const uint16_t PROGMEM rcbr_combo[] = {LT(1, KC_ESCAPE), MT(MOD_LSFT, KC_A), MT(MOD_RCTL, KC_L), COMBO_END};
+
+// Define the combo actions
+combo_t key_combos[COMBO_COUNT] = {
+  [LCBR_COMBO] = COMBO(lcbr_combo, KC_LCBR),  // Layer1 + LShift + K = "{"
+  [RCBR_COMBO] = COMBO(rcbr_combo, KC_RCBR),  // Layer1 + LShift + L = "}"
+};
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_voyager(
     KC_ESCAPE,      KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, 
