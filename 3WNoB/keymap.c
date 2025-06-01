@@ -34,8 +34,8 @@ const uint16_t PROGMEM lcbr_combo[] = {LT(1, KC_ESCAPE), MT(MOD_LSFT, KC_A), MT(
 const uint16_t PROGMEM rcbr_combo[] = {LT(1, KC_ESCAPE), MT(MOD_LSFT, KC_A), MT(MOD_RCTL, KC_L), COMBO_END};
 
 combo_t key_combos[] = {
-  [LCBR_COMBO] = COMBO(lcbr_combo, KC_LCBR),  // Layer1 + LShift + K = "{"
-  [RCBR_COMBO] = COMBO(rcbr_combo, KC_RCBR),  // Layer1 + LShift + L = "}"
+  [LCBR_COMBO] = COMBO(lcbr_combo, KC_LCBR),
+  [RCBR_COMBO] = COMBO(rcbr_combo, KC_RCBR),
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
