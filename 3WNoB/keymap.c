@@ -24,18 +24,15 @@ enum custom_keycodes {
 #define DUAL_FUNC_5 LT(13, KC_N)
 #define DUAL_FUNC_6 LT(3, KC_X)
 
-// Combo definitions
-enum combos {
-  LCBR_COMBO,
-  RCBR_COMBO,
-};
+// Key Overrides for curly braces
+const key_override_t lprn_to_lcbr_override = ko_make_basic(MOD_MASK_SHIFT, KC_LPRN, KC_LCBR);  // Shift + ( = {
+const key_override_t rprn_to_rcbr_override = ko_make_basic(MOD_MASK_SHIFT, KC_RPRN, KC_RCBR);  // Shift + ) = }
 
-const uint16_t PROGMEM lcbr_combo[] = {LT(1, KC_ESCAPE), MT(MOD_LSFT, KC_A), MT(MOD_RALT, KC_K), COMBO_END};
-const uint16_t PROGMEM rcbr_combo[] = {LT(1, KC_ESCAPE), MT(MOD_LSFT, KC_A), MT(MOD_RCTL, KC_L), COMBO_END};
-
-combo_t key_combos[] = {
-  [LCBR_COMBO] = COMBO(lcbr_combo, KC_LCBR),
-  [RCBR_COMBO] = COMBO(rcbr_combo, KC_RCBR),
+// This globally defines all key overrides to be used
+const key_override_t *key_overrides[] = {
+    &lprn_to_lcbr_override,
+    &rprn_to_rcbr_override,
+    NULL  // Null terminate the array
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
