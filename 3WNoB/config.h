@@ -13,3 +13,4 @@
 #define HOLD_ON_OTHER_KEY_PRESS_PER_KEY
 
 #define COMBO_COUNT 2
+#define COMBO_TERM 50
