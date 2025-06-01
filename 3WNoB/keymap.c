@@ -15,7 +15,6 @@ enum custom_keycodes {
 };
 
 
-
 #define DUAL_FUNC_0 LT(11, KC_1)
 #define DUAL_FUNC_1 LT(13, KC_B)
 #define DUAL_FUNC_2 LT(12, KC_8)
@@ -24,16 +23,6 @@ enum custom_keycodes {
 #define DUAL_FUNC_5 LT(13, KC_N)
 #define DUAL_FUNC_6 LT(3, KC_X)
 
-// Key Overrides for curly braces
-const key_override_t lprn_to_lcbr_override = ko_make_basic(MOD_MASK_SHIFT, KC_LPRN, KC_LCBR);  // Shift + ( = {
-const key_override_t rprn_to_rcbr_override = ko_make_basic(MOD_MASK_SHIFT, KC_RPRN, KC_RCBR);  // Shift + ) = }
-
-// This globally defines all key overrides to be used
-const key_override_t **key_overrides = (const key_override_t*[]){
-    &lprn_to_lcbr_override,
-    &rprn_to_rcbr_override,
-    NULL  // Null terminate the array
-};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_voyager(
