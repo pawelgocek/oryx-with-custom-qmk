@@ -29,7 +29,7 @@ const key_override_t lprn_to_lcbr_override = ko_make_basic(MOD_MASK_SHIFT, KC_LP
 const key_override_t rprn_to_rcbr_override = ko_make_basic(MOD_MASK_SHIFT, KC_RPRN, KC_RCBR);  // Shift + ) = }
 
 // This globally defines all key overrides to be used
-const key_override_t *key_overrides[] = {
+const key_override_t **key_overrides = (const key_override_t*[]){
     &lprn_to_lcbr_override,
     &rprn_to_rcbr_override,
     NULL  // Null terminate the array
