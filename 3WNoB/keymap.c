@@ -28,11 +28,11 @@ enum custom_keycodes {
 
 
 
-#define DUAL_FUNC_0 LT(10, KC_D)
-#define DUAL_FUNC_1 LT(1, KC_M)
-#define DUAL_FUNC_2 LT(15, KC_8)
-#define DUAL_FUNC_3 LT(3, KC_H)
-#define DUAL_FUNC_4 LT(1, KC_B)
+#define DUAL_FUNC_0 LT(11, KC_F9)
+#define DUAL_FUNC_1 LT(12, KC_F10)
+#define DUAL_FUNC_2 LT(14, KC_F15)
+#define DUAL_FUNC_3 LT(11, KC_K)
+#define DUAL_FUNC_4 LT(12, KC_1)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_voyager(
@@ -80,8 +80,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [6] = LAYOUT_voyager(
     KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, 
     KC_GRAVE,       KC_1,           KC_2,           KC_3,           KC_4,           KC_5,                                           KC_6,           KC_7,           KC_8,           KC_9,           KC_MINUS,       KC_EQUAL,       
-    KC_TRANSPARENT, MO(7),          KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, MT(MOD_RGUI, KC_3),MT(MOD_RALT, KC_4),MT(MOD_RCTL, KC_5),LT(7, KC_LBRC), KC_RBRC,        
-    KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_0,           KC_1,           KC_2,           KC_BSLS,        KC_TRANSPARENT, 
+    KC_TRANSPARENT, MO(7),          KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_0,           MT(MOD_RGUI, KC_4),MT(MOD_RALT, KC_5),MT(MOD_RCTL, KC_6),LT(7, KC_LBRC), KC_RBRC,        
+    KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_0,           KC_1,           KC_2,           KC_3,           KC_BSLS,        KC_TRANSPARENT, 
                                                     KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT
   ),
   [7] = LAYOUT_voyager(
