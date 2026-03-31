@@ -22,7 +22,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
   [1] = LAYOUT_voyager(
     KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, 
-    CW_TOGG,        KC_1,           KC_2,           KC_3,           KC_4,           KC_5,                                           KC_AMPR,        KC_PLUS,        KC_LPRN,        KC_RPRN,        KC_ASTR,        KC_TRANSPARENT, 
+    KC_TRANSPARENT, KC_1,           KC_2,           KC_3,           KC_4,           KC_5,                                           KC_AMPR,        KC_PLUS,        KC_LPRN,        KC_RPRN,        KC_ASTR,        KC_TRANSPARENT, 
     KC_TRANSPARENT, LT(2, KC_6),    MT(MOD_LCTL, KC_7),MT(MOD_LALT, KC_8),MT(MOD_LGUI, KC_9),KC_0,                                           KC_EQUAL,       MT(MOD_RGUI, KC_MINUS),MT(MOD_RALT, KC_LBRC),MT(MOD_RCTL, KC_RBRC),KC_TRANSPARENT, KC_TRANSPARENT, 
     KC_TRANSPARENT, KC_EXLM,        KC_AT,          KC_HASH,        KC_DLR,         KC_PERC,                                        KC_CIRC,        KC_UNDS,        KC_LCBR,        KC_RCBR,        KC_TRANSPARENT, KC_TRANSPARENT, 
                                                     KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT
@@ -51,6 +51,11 @@ const char chordal_hold_layout[MATRIX_ROWS][MATRIX_COLS] PROGMEM = LAYOUT(
   'L', 'L', 'R', 'R'
 );
 
+const uint16_t PROGMEM combo0[] = { KC_W, KC_E, COMBO_END};
+
+combo_t key_combos[COMBO_COUNT] = {
+    COMBO(combo0, CW_TOGG),
+};
 
 
 
