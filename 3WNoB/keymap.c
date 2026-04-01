@@ -177,8 +177,6 @@ bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
             return true;
         case LT(1,KC_ESCAPE):
             return true;
-        case LT(3,KC_BSPC):
-            return true;
         case MT(MOD_RSFT, KC_SCLN):
             return true;
         default:
