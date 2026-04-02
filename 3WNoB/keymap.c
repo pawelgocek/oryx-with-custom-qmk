@@ -59,7 +59,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TRANSPARENT, KC_1,           KC_2,           KC_3,           KC_4,           KC_5,                                           KC_AMPR,        KC_PLUS,        KC_LPRN,        KC_RPRN,        KC_ASTR,        KC_TRANSPARENT,
     KC_TRANSPARENT, MT(MOD_LSFT, KC_6),MT(MOD_LCTL, KC_7),MT(MOD_LALT, KC_8),MT(MOD_LGUI, KC_9),KC_0,                                           KC_EQUAL,       MT(MOD_RGUI, KC_MINUS),MT(MOD_RALT, KC_LBRC),MT(MOD_RCTL, KC_RBRC),KC_TRANSPARENT, TO(0),
     KC_TRANSPARENT, KC_EXLM,        KC_AT,          KC_HASH,        KC_DLR,         KC_PERC,                                        KC_CIRC,        KC_UNDS,        KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
-                                                    KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT
+                                                    TO(0),          KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT
   ),
   /*
    * Layer 2 - Navigation, F-keys & Media
@@ -207,6 +207,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           caps_word_on();
       }
       return false;
+
   }
   return true;
 }
