@@ -52,6 +52,7 @@ Or `make oryx-build` to run all three in sequence.
 - **Layer 2** (nav/fn/media) — accessed via `LT(2, KC_BSPC)`, time-based hold only (no HOLD_ON_OTHER_KEY_PRESS to prevent accidental layer lock)
 - **CapsWord** — activated by holding `LT(0, KC_NO)` key (above Tab, leftmost QWERTY row); keyboard turns orange while active
 - **DUAL_FUNC_0** (`LT(2, KC_F24)`) — tap = quote, hold = lock layer 1; mapped to the quote key position on home row right
+- **Panic key** (`KC_PANIC`, top-left key on layer 0) — clears all stuck modifiers and layers in one tap; use when keyboard acts erratic instead of replugging
 
 ## RGB / LED colors
 
@@ -59,6 +60,7 @@ Or `make oryx-build` to run all three in sequence.
 - Layer 1 shows dim blue glow (all keys)
 - Layer 2 has custom per-key colors defined in `ledmap`
 - CapsWord overrides all LEDs to orange when active
+- Active modifiers light up their home row keys white (e.g. holding Shift → A and ; glow white); if white keys appear with nothing held → modifier is stuck, hit panic key
 - HSV hue reference: 0=red, 21=orange, 43=yellow, 85=green, 127=cyan, 170=blue, 201=purple
 - `{0,0,0}` = LED off for that key
 
