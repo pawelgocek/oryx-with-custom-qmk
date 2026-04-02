@@ -139,6 +139,9 @@ bool rgb_matrix_indicators_user(void) {
   }
   if (!keyboard_config.disable_layer_led) {
     switch (biton32(layer_state)) {
+      case 1:
+        rgb_matrix_set_color_all(0, 0, 40);  // dim blue while on layer 1
+        break;
       case 2:
         set_layer_color(2);
         break;
