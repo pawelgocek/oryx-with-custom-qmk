@@ -43,20 +43,21 @@ Or `make oryx-build` to run all three in sequence.
 
 ### Visualizing layout
 - `make draw` — generates and opens SVG layout diagram
-- ASCII art comments above each layer in `keymap.c` (layers 0, 1, 3)
+- ASCII art comments above each layer in `keymap.c` (layers 0, 1, 2)
 
 ## Key design decisions
 
 - **Home row mods** (`MT()` on A/S/D/F and J/K/L/;) — protected by CHORDAL_HOLD + PERMISSIVE_HOLD
-- **Layer 1** (symbols/numbers) — accessed via `LT(1, KC_ESCAPE)` with HOLD_ON_OTHER_KEY_PRESS for fast roll activation
-- **Layer 3** (nav/fn/media) — accessed via `LT(3, KC_BSPC)`, time-based hold only (no HOLD_ON_OTHER_KEY_PRESS to prevent accidental layer lock)
+- **Layer 1** (symbols/numbers) — accessed via `LT(1, KC_ESCAPE)` with HOLD_ON_OTHER_KEY_PRESS for fast roll activation; also lockable via DUAL_FUNC_0 hold, exit with ESC (TO(0))
+- **Layer 2** (nav/fn/media) — accessed via `LT(2, KC_BSPC)`, time-based hold only (no HOLD_ON_OTHER_KEY_PRESS to prevent accidental layer lock)
 - **CapsWord** — activated by holding `LT(0, KC_NO)` key (above Tab, leftmost QWERTY row); keyboard turns orange while active
-- **DUAL_FUNC_0** (`LT(3, KC_F24)`) — tap = quote, hold = switch to layer 1; mapped to the quote key position on home row right
+- **DUAL_FUNC_0** (`LT(2, KC_F24)`) — tap = quote, hold = lock layer 1; mapped to the quote key position on home row right
 
 ## RGB / LED colors
 
 - Per-key colors are defined in the `ledmap` array as HSV triples `{hue, saturation, value}`
-- Only layer 3 has custom per-key colors; other layers use default RGB effect
+- Layer 1 shows dim blue glow (all keys)
+- Layer 2 has custom per-key colors defined in `ledmap`
 - CapsWord overrides all LEDs to orange when active
 - HSV hue reference: 0=red, 21=orange, 43=yellow, 85=green, 127=cyan, 170=blue, 201=purple
 - `{0,0,0}` = LED off for that key
