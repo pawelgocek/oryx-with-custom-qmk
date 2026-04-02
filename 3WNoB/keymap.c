@@ -7,6 +7,7 @@
 
 enum custom_keycodes {
   RGB_SLD = ZSA_SAFE_RANGE,
+  KC_PANIC,  // clear all stuck modifiers and layers
 };
 
 
@@ -33,7 +34,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * '/L2 = tap ', hold → lock layer 1 (DUAL_FUNC_0)
    */
   [0] = LAYOUT_voyager(
-    KC_TRANSPARENT,      KC_TRANSPARENT,       KC_TRANSPARENT,       KC_TRANSPARENT,       KC_TRANSPARENT,       KC_TRANSPARENT,             KC_TRANSPARENT,       KC_TRANSPARENT,       KC_TRANSPARENT,       KC_TRANSPARENT,       KC_TRANSPARENT,       KC_TRANSPARENT,
+    KC_PANIC,            KC_TRANSPARENT,       KC_TRANSPARENT,       KC_TRANSPARENT,       KC_TRANSPARENT,       KC_TRANSPARENT,             KC_TRANSPARENT,       KC_TRANSPARENT,       KC_TRANSPARENT,       KC_TRANSPARENT,       KC_TRANSPARENT,       KC_TRANSPARENT,
     LT(0, KC_NO),        KC_Q,                 KC_W,                 KC_E,                 KC_R,                 KC_T,                       KC_Y,                 KC_U,                 KC_I,                 KC_O,                 KC_P,                 KC_BSLS,
     KC_TAB,              MT(MOD_LSFT, KC_A),   MT(MOD_LCTL, KC_S),   MT(MOD_LALT, KC_D),   MT(MOD_LGUI, KC_F),   KC_G,                       KC_H,                 MT(MOD_RGUI, KC_J),   MT(MOD_RALT, KC_K),   MT(MOD_RCTL, KC_L),   MT(MOD_RSFT, KC_SCLN), DUAL_FUNC_0,
     KC_GRAVE,            KC_Z,                 KC_X,                 KC_C,                 KC_V,                 KC_B,                       KC_N,                 KC_M,                 KC_COMMA,             KC_DOT,               KC_SLASH,             KC_TRANSPARENT,
@@ -156,10 +157,28 @@ bool rgb_matrix_indicators_user(void) {
     }
   }
 
+  // Highlight active modifiers on their home row keys
+  // LED positions: A=13 S=14 D=15 F=16 (left), J=39 K=40 L=41 ;=42 (right)
+  uint8_t mods = get_mods() | get_weak_mods() | get_oneshot_mods();
+  if (mods & MOD_MASK_SHIFT) {
+      rgb_matrix_set_color(13, 255, 255, 255);  // A/Shift
+      rgb_matrix_set_color(42, 255, 255, 255);  // ;/Shift
+  }
+  if (mods & MOD_MASK_CTRL) {
+      rgb_matrix_set_color(14, 255, 255, 255);  // S/Ctrl
+      rgb_matrix_set_color(41, 255, 255, 255);  // L/Ctrl
+  }
+  if (mods & MOD_MASK_ALT) {
+      rgb_matrix_set_color(15, 255, 255, 255);  // D/Alt
+      rgb_matrix_set_color(40, 255, 255, 255);  // K/Alt
+  }
+  if (mods & MOD_MASK_GUI) {
+      rgb_matrix_set_color(16, 255, 255, 255);  // F/Gui
+      rgb_matrix_set_color(39, 255, 255, 255);  // J/Gui
+  }
+
   return true;
 }
-
-
 
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -180,6 +199,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
     }
     break;
+
+    case KC_PANIC:
+      if (record->event.pressed) {
+          clear_mods();
+          clear_weak_mods();
+          clear_oneshot_mods();
+          layer_clear();
+          send_keyboard_report();
+      }
+      return false;
 
     case DUAL_FUNC_0:
       if (record->tap.count > 0) {
