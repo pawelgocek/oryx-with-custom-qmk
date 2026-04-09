@@ -7,7 +7,7 @@
 
 enum custom_keycodes {
   RGB_SLD = ZSA_SAFE_RANGE,
-  KC_PANIC,  // clear all stuck modifiers and layers
+  KC_PANIC,   // clear all stuck modifiers and layers
 };
 
 
@@ -21,7 +21,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * ,------+------+------+------+------+------.  ,------+------+------+------+------+------.
    * |      |      |      |      |      |      |  |      |      |      |      |      |      |
    * |------+------+------+------+------+------|  |------+------+------+------+------+------|
-   * |  CW  |  Q   |  W   |  E   |  R   |  T   |  |  Y   |  U   |  I   |  O   |  P   |  \   |
+   * |  CW  |  Q   |  W   |  E   |  R   |  T   |  |  Y   |  U   |  I   |  O   |  P   |\~/NW |
    * |------+------+------+------+------+------|  |------+------+------+------+------+------|
    * | Tab  |A/Sft |S/Ctl |D/Alt |F/Gui |  G   |  |  H   |J/Gui |K/Alt |L/Ctl |;/Sft | '/L2 |
    * |------+------+------+------+------+------|  |------+------+------+------+------+------|
@@ -32,10 +32,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    *
    * CW = hold for CapsWord
    * '/L2 = tap ', hold → lock layer 1 (DUAL_FUNC_0)
+   * \~/NW = tap \, hold → toggle NumWord (layer 1, green; exits on space/enter or hold again)
    */
   [0] = LAYOUT_voyager(
     KC_PANIC,            KC_TRANSPARENT,       KC_TRANSPARENT,       KC_TRANSPARENT,       KC_TRANSPARENT,       KC_TRANSPARENT,             KC_TRANSPARENT,       KC_TRANSPARENT,       KC_TRANSPARENT,       KC_TRANSPARENT,       KC_TRANSPARENT,       KC_TRANSPARENT,
-    LT(0, KC_NO),        KC_Q,                 KC_W,                 KC_E,                 KC_R,                 KC_T,                       KC_Y,                 KC_U,                 KC_I,                 KC_O,                 KC_P,                 KC_BSLS,
+    LT(0, KC_NO),        KC_Q,                 KC_W,                 KC_E,                 KC_R,                 KC_T,                       KC_Y,                 KC_U,                 KC_I,                 KC_O,                 KC_P,                 LT(0, KC_BSLS),
     KC_TAB,              MT(MOD_LSFT, KC_A),   MT(MOD_LCTL, KC_S),   MT(MOD_LALT, KC_D),   MT(MOD_LGUI, KC_F),   KC_G,                       KC_H,                 MT(MOD_RGUI, KC_J),   MT(MOD_RALT, KC_K),   MT(MOD_RCTL, KC_L),   MT(MOD_RSFT, KC_SCLN), DUAL_FUNC_0,
     KC_GRAVE,            KC_Z,                 KC_X,                 KC_C,                 KC_V,                 KC_B,                       KC_N,                 KC_M,                 KC_COMMA,             KC_DOT,               KC_SLASH,             KC_TRANSPARENT,
                                                                      LT(1, KC_ESCAPE),     MT(MOD_LGUI, KC_ENTER),                           LT(2, KC_BSPC),      LT(1, KC_SPACE)
@@ -105,6 +106,8 @@ RGB hsv_to_rgb_with_value(HSV hsv) {
   return (RGB){ f * rgb.r, f * rgb.g, f * rgb.b };
 }
 
+static bool num_word_active = false;
+
 void keyboard_post_init_user(void) {
   rgb_matrix_enable();
 }
@@ -134,8 +137,33 @@ bool rgb_matrix_indicators_user(void) {
   if (rawhid_state.rgb_control) {
       return false;
   }
+  // sync num_word_active if user exited layer 1 via TO(0) or panic
+  if (num_word_active && biton32(layer_state) != 1) {
+      num_word_active = false;
+  }
   if (is_caps_word_on()) {
       rgb_matrix_set_color_all(255, 80, 0);  // orange while CapsWord is active
+      return true;
+  }
+  if (num_word_active) {
+      rgb_matrix_set_color_all(0, 180, 0);  // green while NumWord is active
+      uint8_t mods = get_mods() | get_weak_mods() | get_oneshot_mods();
+      if (mods & MOD_MASK_SHIFT) {
+          rgb_matrix_set_color(13, 255, 255, 255);
+          rgb_matrix_set_color(42, 255, 255, 255);
+      }
+      if (mods & MOD_MASK_CTRL) {
+          rgb_matrix_set_color(14, 255, 255, 255);
+          rgb_matrix_set_color(41, 255, 255, 255);
+      }
+      if (mods & MOD_MASK_ALT) {
+          rgb_matrix_set_color(15, 255, 255, 255);
+          rgb_matrix_set_color(40, 255, 255, 255);
+      }
+      if (mods & MOD_MASK_GUI) {
+          rgb_matrix_set_color(16, 255, 255, 255);
+          rgb_matrix_set_color(39, 255, 255, 255);
+      }
       return true;
   }
   if (!keyboard_config.disable_layer_led) {
@@ -236,6 +264,45 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           caps_word_on();
       }
       return false;
+
+    case LT(0, KC_BSLS):
+      if (record->tap.count > 0) {
+          // tap: backslash
+          if (record->event.pressed) register_code(KC_BSLS);
+          else unregister_code(KC_BSLS);
+      } else if (record->event.pressed) {
+          // hold: toggle NumWord
+          if (num_word_active) {
+              num_word_active = false;
+              layer_move(0);
+          } else {
+              num_word_active = true;
+              layer_move(1);
+          }
+      }
+      return false;
+
+    case LT(1, KC_SPACE):
+      // Exit NumWord on space tap (layer 1 is transparent at this position, falls through)
+      if (num_word_active && record->tap.count > 0 && !record->event.pressed) {
+          num_word_active = false;
+          layer_move(0);
+          register_code(KC_SPACE);
+          unregister_code(KC_SPACE);
+          return false;
+      }
+      break;
+
+    case MT(MOD_LGUI, KC_ENTER):
+      // Exit NumWord on enter tap
+      if (num_word_active && record->tap.count > 0 && !record->event.pressed) {
+          num_word_active = false;
+          layer_move(0);
+          register_code(KC_ENTER);
+          unregister_code(KC_ENTER);
+          return false;
+      }
+      break;
 
   }
   return true;
